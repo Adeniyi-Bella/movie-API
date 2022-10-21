@@ -2,6 +2,8 @@ const http = require('http'),
   fs = require('fs'),
   url = require('url');
 
+  import ('http')
+
 //   creating a server on the local host 8080
 http.createServer((request, response) => {
   let addr = request.url,

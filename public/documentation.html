@@ -1,17 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Movie API</title>
 </head>
+
 <body>
-    <h1>Objective</h1>
-    <p>To build the server-side component of a “movies” web application. The web
-        application will provide users with access to information about different
-        movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.
+    <section class="nav-header">
+        <h1 class="documentation">
+            Documentation
+        </h1>
+    </section>
+    <section class="introduction">
+        <h2 class="introduction"> Introduction</h2>
+        <p>This web API application will provide users with access to information about different
+            movies, directors, and genres. Users will be able to sign up, update their
+            personal information, and create a list of their favorite movies.</p>
+        <p>
+            The table below can help users to understand how to format requests
+            to the API application.
         </p>
+    </section>
+    <section style="overflow-x:auto;">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Business Logic</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th>Request body data format</th>
+                <th>Response body data format</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Get a list of all movies</td>
+                <td>/movies</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data of all movies</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Get all properties of a specific movie based on title;</td>
+                <td>/movies/[title]</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data of a specific movie. Example
+                    <br><br>{
+                    "Title": "The Fountain", <br>
+                    "Description": "On this very day .....", <br>
+                    "Genre": { <br>
+                    "Name": "Drama", <br>
+                    "Description": "Description of the genre"<br>
+                    }, <br>
+                    "Director": {
+                    "Name": "Daren",
+                    "Bio": "Directors Bio",
+                    "Birth": 1989
+                    },<br>
+                    "ImageURL": "image of the movie",
+                    "featured": false
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Get all properties of a specific movie based on genre;</td>
+                <td>/movies/genre/[genreName]</td>
+                <td>GET</td>
+                <td>None</td>
+                <td>A JSON object holding data of genre of a specific movie. Example
+                    <br><br>
+                    {
+                    "Name": "Drama",
+                    "Description": "Description of the genre"
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Get properties of a director based on name</td>
+                <td>/movies/director/[directorName]</td>
+                <td>GET</td>
+                <td>None
+                </td>
+                <td>A JSON object holding data of genre of a specific movie. Example
+                    <br><br>
+                    {
+                    "Name": "Daren",
+                    "Bio": "Directors Bio",
+                    "Birth": 1989
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>New users registration</td>
+                <td>/users</td>
+                <td>POST</td>
+                <td>A JSON object holding user details. Example <br>
+                    {
+                    "userName": "newUser",
+                    "favoriteMovies": []
+                    }
+                </td>
+                <td>A JSON object holding data of user added
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Users editing their details. Example: username</td>
+                <td>/users/[id]</td>
+                <td>PUT</td>
+                <td>A JSON object holding newly edited user details.
+                </td>
+                <td>A JSON object holding newly edited user details.
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Users adding to their favorite movies</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>POST</td>
+                <td>None</td>
+                <td>Returns a text that a movie has been added.
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>To remove a movie from list of favorites.</td>
+                <td>/users/:id/:movieTitle</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>Returns a text that a movie has been removed.
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>To deregister existing users.</td>
+                <td>/users/:id</td>
+                <td>DELETE</td>
+                <td>None</td>
+                <td>Returns a text that a user has been removed.
+                </td>
+            </tr>
+        </table>
+    </section>
 </body>
+
 </html>

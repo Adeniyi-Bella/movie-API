@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    padding: 20px;
+}
+
+.nav-header {
+    /* position: fixed; */
+    background: fixed;
+    background-color: rgba(0, 0, 0, 0.516);
+    padding: 5px;
+    margin-top: 20px;
+}
+h1.documentation{
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+h2.introduction{
+    text-decoration-line: underline;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+  }

@@ -5,8 +5,15 @@ const express = require('express'),
   mongoose = require('mongoose'),
   Models = require('./models.js');
 
+  // To get the body data i.e json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// to ensure your application can make use of your 
+// “auth.js” file, and that your “auth.js” file can use Express
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+// To load static files
 app.use(express.static('public'));
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -18,17 +25,20 @@ mongoose.connect('mongodb://localhost:27017/myMovieAPI', {
 
 // Return a list of ALL movies to the user;
 // Read/get
-app.get('/movies', (req, res) => {
-  // db.movies.find() in mongoose db
-  Movies.find()
-    .then((movies) => {
-      res.status(200).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+app.get(
+  '/movies',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  }
+);
 
 // get users
 app.get('/users', (req, res) => {

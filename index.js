@@ -3,21 +3,41 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   uuid = require('uuid'),
   mongoose = require('mongoose'),
-  Models = require('./models.js');
+  Models = require('./models.js'),
+  cors = require('cors'),
+  bcrypt = require('bcrypt'),
+  { check, validationResult } = require('express-validator');
 
-  // To get the body data i.e json
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          'The CORS policy for this application doesn’t allow access from origin ' +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+app.use(express.static('public'));
+// To get the body data i.e json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// to ensure your application can make use of your 
+// to ensure your application can make use of your
 // “auth.js” file, and that your “auth.js” file can use Express
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 // To load static files
-app.use(express.static('public'));
+
 const Movies = Models.Movie;
 const Users = Models.User;
-
 mongoose.connect('mongodb://localhost:27017/myMovieAPI', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -92,7 +112,25 @@ app.get('/movies/genre/:genreName', (req, res) => {
 // Allow new users to register;
 // create/Post
 
-app.post('/users', (req, res) => {
+app.post('/users', [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],(req, res) => {
+  // Validation logic above for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+
+   // check the validation object for errors
+   let errors = validationResult(req);
+
+   if (!errors.isEmpty()) {
+     return res.status(422).json({ errors: errors.array() });
+   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -102,7 +140,7 @@ app.post('/users', (req, res) => {
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
@@ -181,4 +219,9 @@ app.delete('/users/:Username', (req, res) => {
     });
 });
 
-app.listen(8080, () => console.log('listening on port 8080'));
+// app.listen(8080, () => console.log('listening on port 8080'));
+
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});

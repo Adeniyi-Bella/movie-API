@@ -38,15 +38,15 @@ require('./passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-mongoose.connect('mongodb://localhost:27017/myMovieAPI', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect('mongodb+srv://Governor239:Governor239@remote-db.xwyuh8n.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true });
 
 // Return a list of ALL movies to the user;
 // Read/get
-app.get(
-  '/movies',
+app.get('/movies',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.find()
@@ -109,6 +109,8 @@ app.get('/movies/genre/:genreName', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
+
+
 // Allow new users to register;
 // create/Post
 
@@ -225,3 +227,8 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
+
+
+
+
+

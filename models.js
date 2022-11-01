@@ -5,10 +5,7 @@ bcrypt = require('bcrypt');
 let movieSchema = mongoose.Schema({
     Title: {type: String, required: true},
     Description: {type: String, required: true},
-    Genre: {
-      Name: String,
-      Description: String
-    },
+    genres: [String],
     Director: {
       Name: String,
       Bio: String

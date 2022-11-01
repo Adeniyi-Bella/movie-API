@@ -25,6 +25,8 @@
                 href="https://www.postman.com/downloads/" target="_blank">Here.</a>
         </p>
         <p>Using the post method in postman, follow the picture below by adding neccessary data to complete the request and hit enter on your keyboard.
+        After registration is completed, users needs to log in using the /login endpoint, where they would be issued with an 
+        authorization token. With this token, users have access to all other endpoints as shown in the table below.
         </p>
         <img src="ex1.JPG" style="height: 500px;" alt="">
     </section>
@@ -45,10 +47,24 @@
             </tr>
             <tr>
                 <td>1</td>
+                <td>Users log in</td>
+                <td>/login</td>
+                <td>POST</td>
+                <td>A JSON object holding user details. Example <br>
+                    {
+                    "userName": "",<br>
+                    "Passord": "",<br>
+                    "Email":"",<br>
+                    "favoriteMovies": []
+                    }</td>
+                <td>A JSON object holding users details</td>
+            </tr>
+            <tr>
+                <td>1</td>
                 <td>Get a list of all movies</td>
                 <td>/movies</td>
                 <td>GET</td>
-                <td>None</td>
+                <td>A bearer token for authorization</td>
                 <td>A JSON object holding data of all movies</td>
             </tr>
             <tr>
@@ -56,7 +72,7 @@
                 <td>Get all properties of a specific movie based on title;</td>
                 <td>/movies/[title]</td>
                 <td>GET</td>
-                <td>None</td>
+                <td>A bearer token for authorization</td>
                 <td>A JSON object holding data of a specific movie. Example
                     <br><br>{
                     "Title": "The Fountain", <br>
@@ -80,7 +96,7 @@
                 <td>Get all properties of a specific movie based on genre;</td>
                 <td>/movies/genre/[genreName]</td>
                 <td>GET</td>
-                <td>None</td>
+                <td>A bearer token for authorization</td>
                 <td>A JSON object holding data of genre of a specific movie. Example
                     <br><br>
                     {
@@ -94,7 +110,7 @@
                 <td>Get properties of a director based on name</td>
                 <td>/movies/director/[directorName]</td>
                 <td>GET</td>
-                <td>None
+                <td>A bearer token for authorization
                 </td>
                 <td>A JSON object holding data of genre of a specific movie. Example
                     <br><br>

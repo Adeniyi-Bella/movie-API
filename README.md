@@ -12,7 +12,7 @@ An API server side implementation of a web application that provides users with 
 - Register
 - Log in
 - Update their info
-- For mor features, please check the documentation: https://imbd-movies.herokuapp.com/documentation
+- For mor features, please check the documentation: https://imbd-movies.herokuapp.com/documentation.html
 
 ## Links
 Live App: https://imbd-movies.herokuapp.com/

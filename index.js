@@ -72,9 +72,13 @@ app.get(
   (req, res) => {
     Movies.find()
       .then((movies) => {
-        console.log(movies);
-        if (movies.Title){
-        res.status(201).json(movies);}
+        // console.log(movies.length);
+        let movie = movies.filter((movie) => {
+          if (movie.Title) {
+            return movie;
+          }
+        });
+        res.status(201).json(movie);
       })
       .catch((error) => {
         console.error(error);
@@ -85,18 +89,22 @@ app.get(
 
 // Return properties of a specific movie based on title;
 // Read/get
-app.get('/movies/:Title', passport.authenticate('jwt', { session: false }),(req, res) => {
-  console.log('Here', req.params.Title);
-  Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
-      res.json(movie);
-      // res.json(movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+app.get(
+  '/movies/:Title',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log('Here', req.params.Title);
+    Movies.findOne({ Title: req.params.Title })
+      .then((movie) => {
+        res.json(movie);
+        // res.json(movie);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  }
+);
 
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
@@ -111,17 +119,21 @@ app.get('/users/:Username', (req, res) => {
 });
 // Return properties of a specific movie title based on genre;
 // Read/get
-app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find({ genres: req.params.genreName })
-    .then((movie) => {
-      res.json(movie);
-      // res.json(movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+app.get(
+  '/movies/genre/:genreName',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Movies.find({ genres: req.params.genreName })
+      .then((movie) => {
+        res.json(movie);
+        // res.json(movie);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  }
+);
 
 // Allow new users to register;
 // create/Post

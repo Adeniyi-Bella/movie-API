@@ -73,7 +73,8 @@ app.get(
     Movies.find()
       .then((movies) => {
         console.log(movies);
-        res.status(201).json(movies);
+        if (movies.Title){
+        res.status(201).json(movies);}
       })
       .catch((error) => {
         console.error(error);

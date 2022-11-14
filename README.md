@@ -16,6 +16,7 @@ An API server side implementation of a web application that provides users with 
 
 ## Links
 Live App: https://imbd-movies.herokuapp.com/
+Front-end implementation: https://github.com/Adeniyi-Bella/movie-API-client_server
 
 ## Built with
 Node.js

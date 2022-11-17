@@ -15,7 +15,8 @@ An API server side implementation of a web application that provides users with 
 - For mor features, please check the documentation: https://imbd-movies.herokuapp.com/documentation.html
 
 ## Links
-Live App: https://imbd-movies.herokuapp.com/
+- Live App: https://imbd-movies.herokuapp.com/
+- Front-end implementation: https://github.com/Adeniyi-Bella/movie-API-client_server
 
 ## Built with
 Node.js

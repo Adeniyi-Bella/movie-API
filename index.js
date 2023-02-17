@@ -43,10 +43,15 @@ require("./passport");
 const Movies = Models.Movie;
 const Users = Models.User;
 
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', {
+// mongoose.connect('mongodb://localhost:27017/test', {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 // });
+
+mongoose.connect('mongodb://44.202.57.104:27017/test', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 /** */
 // mongoose.connect(process.env.CONNECTION_URI, {
@@ -55,16 +60,17 @@ const Users = Models.User;
 // });
 // mongoose.disconnect()
 // process.env.CONNECTION_URI
-mongoose.connect(
-  process.env.CONNECTION_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+// mongoose.connect(
+//   process.env.CONNECTION_URI,
+//   { useNewUrlParser: true, useUnifiedTopology: true }
+// );
 
 // get users
 
 app.get("/users", (req, res) => {
   Users.find()
     .then((users) => {
+      console.log(users);
       res.status(201).json(users);
     })
     .catch((err) => {
